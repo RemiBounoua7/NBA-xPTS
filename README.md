@@ -1,2 +1,3 @@
-# Scouting-Report-App
-Streamlit app to visualize NBA players' season/game shotchart and decipher tendencies, draw up game plans ...
+# NBA games xPTS
+Streamlit app to visualize NBA games' expected points scored by teams and players.
+Who shoul've won ?
