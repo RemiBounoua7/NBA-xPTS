@@ -208,7 +208,7 @@ team_logos = {
 }
 
 
-st.write('# Game Scouting Report')
+st.write('# Game xPTS')
 total_games_df = pd.concat([leaguegamelog.LeagueGameLog().get_data_frames()[0],leaguegamelog.LeagueGameLog(season_type_all_star="Playoffs").get_data_frames()[0]])
 total_games_df=total_games_df.sort_values(['GAME_DATE'], ascending=True)
 
@@ -307,10 +307,10 @@ try:
 
             # Team logos
             with col1:
-                st.image(team_logos[game['home_team']], use_column_width=True)
+                st.image(team_logos[game['home_team']], use_container_width =True)
 
             with col3:
-                st.image(team_logos[game['away_team']], use_column_width=True)
+                st.image(team_logos[game['away_team']], use_container_width =True)
 
             # Game score
             with col2:
