@@ -145,7 +145,7 @@ def get_fg(player_season_df, shot_type, shot_zone_basic, shot_area):
     if vol > 5:
         xPTS = len(shots_df[shots_df['SHOT_MADE_FLAG']==1]) / vol
         #st.write(xPTS)
-        return xPTS+.03
+        return xPTS+.06
     else:
         if len(player_season_df[player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic])==0:
             return 0
