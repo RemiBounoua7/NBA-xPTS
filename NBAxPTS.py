@@ -7,7 +7,6 @@ from typing import Union, Sequence, Optional, List
 from io import BytesIO, TextIOWrapper
 import csv
 import streamlit as st
-import matplotlib
 from nba_api.stats.endpoints import shotchartdetail,leaguedashplayerstats,leaguegamelog,boxscoretraditionalv2
 
 matplotlib.use('Agg')
