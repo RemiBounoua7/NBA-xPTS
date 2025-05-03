@@ -327,7 +327,7 @@ try:
                 )
 
             # Expandable boxscore
-            with st.expander(f"View Boxscore for {game['home_team']} vs {game['away_team']}"):
+            with st.expander(f"{game['home_team']} vs {game['away_team']} Boxscore "):
                 with st.container():
                     c1, c2 = st.columns([2, 2])
                     with c1:
