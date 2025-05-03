@@ -9,7 +9,6 @@ import csv
 import streamlit as st
 from nba_api.stats.endpoints import shotchartdetail,leaguedashplayerstats,leaguegamelog,boxscoretraditionalv2
 
-matplotlib.use('Agg')
 
 
 
