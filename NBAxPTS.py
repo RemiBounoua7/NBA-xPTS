@@ -316,10 +316,10 @@ try:
             with col2:
                 st.markdown(
                     f"""
-                    <div style='text-align: center; font-size: 60px;'>
+                    <div style='text-align: center; font-size: 100px;'>
                         {game["score"]}
                     </div>
-                    <div style='text-align: center; color: gray; font-size: 20px;'>
+                    <div style='text-align: center; color: gray; font-size: 50px;'>
                         {game["x_score"]}
                     </div>
                     """,
