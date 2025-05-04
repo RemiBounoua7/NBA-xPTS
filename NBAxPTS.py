@@ -296,14 +296,13 @@ try:
             })
     
 
-
     rectangles_df = pd.DataFrame(rectangles)
 
     for _, game in rectangles_df.iterrows():
 
         st.markdown("---")
         with st.container():
-            col1, col2, col3 = st.columns([1, 3, 1])
+            col1, col2, col3 = st.columns([1, 4, 1])
 
             # Team logos
             with col1:
@@ -316,10 +315,10 @@ try:
             with col2:
                 st.markdown(
                     f"""
-                    <div style='text-align: center; font-size: 100px;'>
+                    <div style='text-align: center; font-size: 110px;'>
                         {game["score"]}
                     </div>
-                    <div style='text-align: center; color: gray; font-size: 50px;'>
+                    <div style='text-align: center; color: gray; font-size: 60px;'>
                         {game["x_score"]}
                     </div>
                     """,
