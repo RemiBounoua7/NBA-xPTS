@@ -141,17 +141,17 @@ def get_fg(player_season_df, shot_type, shot_zone_basic, shot_area):
     xPTS = 0
     shots_df = player_season_df[(player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic) & (player_season_df['SHOT_ZONE_AREA']== shot_area) & (player_season_df['ACTION_TYPE']==shot_type)]
     vol = len(shots_df)
-    st.write(player_season_df['PLAYER_NAME'].values[0],shot_type, shot_zone_basic, shot_area)
+    st.write(player_season_df['PLAYER_NAME'].values[0],shot_type, shot_zone_basic, shot_area, vol)
     if vol > 5:
         xPTS = len(shots_df[shots_df['SHOT_MADE_FLAG']==1]) / vol
-        st.write(xPTS)
+        st.write(max(xPTS+vol/1000,.98))
         return max(xPTS+vol/1000,.98)
     else:
         if len(player_season_df[player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic])==0:
             return 0
         else :
             xPTS = len(player_season_df[(player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic) & (shots_df['SHOT_MADE_FLAG']==1)]) / len(player_season_df[player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic])
-            st.write(xPTS)
+            st.write(max(xPTS+vol/2500,.98))
             return max(xPTS+vol/2500,.98)
         
 def get_player_xpts(player_id,game_shotchart):
