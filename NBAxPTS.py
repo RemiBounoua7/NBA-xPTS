@@ -10,7 +10,7 @@ import streamlit as st
 from nba_api.stats.endpoints import shotchartdetail,leaguedashplayerstats,leaguegamelog,boxscoretraditionalv2
 
 
-st.set_page_config(page_title="NBA xPTS")
+st.set_page_config(page_title="NBA xPTS", layout="wide")
 
 
 @st.cache_data
