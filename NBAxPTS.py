@@ -144,15 +144,15 @@ def get_fg(player_season_df, shot_type, shot_zone_basic, shot_area):
     st.write(player_season_df['PLAYER_NAME'].values[0],shot_type, shot_zone_basic, shot_area, f"volume :{vol}")
     if vol > 5:
         xPTS = len(shots_df[shots_df['SHOT_MADE_FLAG']==1]) / vol
-        st.write(f"add {vol/150} to {xPTS}  total = {xPTS+vol/150}")
-        return min(xPTS+vol/150,.90)
+        st.write(f"add {min(vol/150,.25)} to {xPTS}  total = {xPTS+min(vol/150,.25)}")
+        return min(xPTS+min(vol/150,.25),.90)
     else:
         if len(player_season_df[player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic])==0:
             return 0
         else :
             xPTS = len(player_season_df[(player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic) & (shots_df['SHOT_MADE_FLAG']==1)]) / len(player_season_df[player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic])
-            st.write(f"add {vol/250} to {xPTS}  total = {xPTS+vol/250}")
-            return min(xPTS+vol/250,.90)
+            st.write(f"add {min(vol/250,.25)} to {xPTS}  total = {xPTS+min(vol/250,.25)}")
+            return min(xPTS+min(vol/250,.25),.90)
         
 def get_player_xpts(player_id,game_shotchart):
         
