@@ -168,7 +168,7 @@ def get_player_xpts(player_id,game_shotchart):
         xPTS += int(shot['SHOT_TYPE']) * shot_xpts
         #st.write(f"THEREFORE xPTS = {int(shot['SHOT_TYPE']) * shot_xpts}")
    
-    #st.write(f"ADD FT : {round(game_boxscore.loc[player_id,'FTA'] * player_FTpct_df.loc[player_id,'FT_PCT'],1)}")    
+    st.write(f"ADD FT : {round(game_boxscore.loc[player_id,'FTA'] * player_FTpct_df.loc[player_id,'FT_PCT'],1)}")    
     xPTS += game_boxscore.loc[player_id,'FTA'] * player_FTpct_df.loc[player_id,'FT_PCT']
 
     return round(xPTS,1)
