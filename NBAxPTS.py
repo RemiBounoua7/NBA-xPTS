@@ -318,7 +318,7 @@ try:
                     <div style='text-align: center; font-size: 110px;'>
                         {game["score"]}
                     </div>
-                    <div style='text-align: center; color: gray; font-size: 60px;'>
+                    <div style='text-align: center; color: gray; font-size: 40px;'>
                         {game["x_score"]}
                     </div>
                     """,
