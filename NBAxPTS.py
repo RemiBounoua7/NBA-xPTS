@@ -142,17 +142,17 @@ def get_fg(player_season_df, shot_type, shot_zone_basic, shot_area):
     xPTS = 0
     shots_df = player_season_df[(player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic) & (player_season_df['SHOT_ZONE_AREA']== shot_area) & (player_season_df['ACTION_TYPE']==shot_type)]
     vol = len(shots_df)
-    st.write(player_season_df['PLAYER_NAME'].values[0],shot_type, shot_zone_basic, shot_area, f"volume :{vol}")
+    #st.write(player_season_df['PLAYER_NAME'].values[0],shot_type, shot_zone_basic, shot_area, f"volume :{vol}")
     if vol > 5:
         xPTS = len(shots_df[shots_df['SHOT_MADE_FLAG']==1]) / vol
-        st.write(f"add {min(vol/150,.25)} to {xPTS}  total = {xPTS+min(vol/150,.25)}")
+        #st.write(f"add {min(vol/150,.25)} to {xPTS}  total = {xPTS+min(vol/150,.25)}")
         return min(xPTS+min(vol/150,.25),.95)
     else:
         if len(player_season_df[player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic])==0:
             return 0
         else :
             xPTS = len(player_season_df[(player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic) & (shots_df['SHOT_MADE_FLAG']==1)]) / len(player_season_df[player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic])
-            st.write(f"add {min(vol/250,.25)} to {xPTS}  total = {xPTS+min(vol/250,.25)}")
+            #st.write(f"add {min(vol/250,.25)} to {xPTS}  total = {xPTS+min(vol/250,.25)}")
             return min(xPTS+min(vol/250,.25),.95)
         
 def get_player_xpts(player_id,game_shotchart):
@@ -166,9 +166,9 @@ def get_player_xpts(player_id,game_shotchart):
         shot_xpts = get_fg(player_season_shotchart,shot['ACTION_TYPE'] , shot['SHOT_ZONE_BASIC'], shot['SHOT_ZONE_AREA'])
         #st.write(player_name,shot['ACTION_TYPE'] , shot['SHOT_ZONE_BASIC'], shot['SHOT_ZONE_AREA'],int(shot['SHOT_TYPE']),shot_xpts)
         xPTS += int(shot['SHOT_TYPE']) * shot_xpts
-        st.write(f"THEREFORE xPTS = {int(shot['SHOT_TYPE']) * shot_xpts}")
+        #st.write(f"THEREFORE xPTS = {int(shot['SHOT_TYPE']) * shot_xpts}")
    
-    st.write(f"ADD FT : {round(game_boxscore.loc[player_id,'FTA'] * player_FTpct_df.loc[player_id,'FT_PCT'],1)}")    
+    #st.write(f"ADD FT : {round(game_boxscore.loc[player_id,'FTA'] * player_FTpct_df.loc[player_id,'FT_PCT'],1)}")    
     xPTS += game_boxscore.loc[player_id,'FTA'] * player_FTpct_df.loc[player_id,'FT_PCT']
 
     return round(xPTS,1)
