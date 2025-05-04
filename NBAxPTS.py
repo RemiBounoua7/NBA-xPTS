@@ -145,7 +145,7 @@ def get_fg(player_season_df, shot_type, shot_zone_basic, shot_area):
     if vol > 5:
         xPTS = len(shots_df[shots_df['SHOT_MADE_FLAG']==1]) / vol
         st.write(min(xPTS+vol/100,.98))
-        return min(xPTS+vol/100,.98)
+        return min(xPTS+vol/150,.98)
     else:
         if len(player_season_df[player_season_df['SHOT_ZONE_BASIC']==shot_zone_basic])==0:
             return 0
@@ -303,7 +303,7 @@ try:
 
         st.markdown("---")
         with st.container():
-            col1, col2, col3 = st.columns([2, 3, 2])
+            col1, col2, col3 = st.columns([1, 3, 1])
 
             # Team logos
             with col1:
