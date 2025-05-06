@@ -207,6 +207,8 @@ team_logos = {
     'WAS': 'https://loodibee.com/wp-content/uploads/nba-washington-wizards-logo.png'
 }
 
+clutch_time_list = [0, "Last 5 Minutes", "Last 4 Minutes", "Last 3 Minutes",  "Last 2 Minutes", "Last 1 Minute", "Last 30 Seconds", "Last 10 Seconds" ]
+period_list = range(5)
 
 st.write('# Game xPTS')
 total_games_df = pd.concat([leaguegamelog.LeagueGameLog().get_data_frames()[0],leaguegamelog.LeagueGameLog(season_type_all_star="Playoffs").get_data_frames()[0]])
@@ -246,12 +248,22 @@ try:
 
         game_boxscore=game_boxscore.dropna().set_index('PLAYER_ID')
         game_boxscore['MIN'] = game_boxscore['MIN'].apply(lambda min: min.split('.')[0] )
-
+        selected_clutch_time = st.selectbox(
+                    "Select the Game Clutch time",
+                    clutch_time_list,
+                    index=0)
+        
+        selected_period = st.selectbox(
+                    "Select the Game Quarter",
+                    period_list,
+                    index=0)
         game_shotchart = pd.concat([
         shotchartdetail.ShotChartDetail(
         team_id=0,
         player_id=0,
         game_id_nullable=game_id,
+        period=selected_period,
+        clutch_time_nullable=selected_clutch_time,
         context_measure_simple='FGA',
         season_type_all_star="Regular Season"
         ).get_data_frames()[0],
@@ -302,6 +314,17 @@ try:
 
         st.markdown("---")
         with st.container():
+            column1, column2, column3 = st.columns([1, 4, 1])
+            with column1:
+                selected_clutch_time = st.selectbox(
+                    "Select the Game Clutch time",
+                    clutch_time_list,
+                    index=0)
+            with column2:
+                selected_period = st.selectbox(
+                    "Select the Game Quarter",
+                    period_list,
+                    index=0)
             col1, col2, col3 = st.columns([1, 4, 1])
 
             # Team logos
@@ -335,6 +358,7 @@ try:
                         st.write(game["Away_boxscore"].sort_values(by=['PTS','xPTS'],ascending=False).reset_index(drop=True))
 
 
+    player_on_off = ["All"] + game_boxscore['PLAYER_ID'].unique()
 
 except Exception as e:
     st.write(f"An error occurred: {e}")
