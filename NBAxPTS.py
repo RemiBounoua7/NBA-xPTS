@@ -322,6 +322,7 @@ try:
 
         st.markdown("---")
         with st.container():
+            st.write(game_shotchart)
             column1, column2, column3 = st.columns(3)
             with column1:
                 selected_clutch_time = st.selectbox(
