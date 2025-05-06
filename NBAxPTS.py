@@ -111,29 +111,6 @@ def load_nba_data(path: Union[Path, str] = Path.cwd(),
     else:
         return None
 
-def load_game_shotchart(game_id, period, clutch_time):
-    game_shotchart = pd.concat([
-        shotchartdetail.ShotChartDetail(
-        team_id=0,
-        player_id=0,
-        game_id_nullable=game_id,
-        period=period,
-        clutch_time_nullable=clutch_time,
-        context_measure_simple='FGA',
-        season_type_all_star="Regular Season"
-        ).get_data_frames()[0],
-
-        shotchartdetail.ShotChartDetail(
-        team_id=0,
-        player_id=0,
-        game_id_nullable=game_id,
-        context_measure_simple='FGA',
-        season_type_all_star="Playoffs"
-        ).get_data_frames()[0]])
-    
-    #if player_id not null: filter on player on/off based on minutes
-    return game_shotchart
-
 def get_game_ids_from_date(date):
 
     # Fetch scoreboard for the specified date
@@ -230,8 +207,6 @@ team_logos = {
     'WAS': 'https://loodibee.com/wp-content/uploads/nba-washington-wizards-logo.png'
 }
 
-clutch_time_list = ["Last 5 Minutes", "Last 4 Minutes", "Last 3 Minutes",  "Last 2 Minutes", "Last 1 Minute", "Last 30 Seconds", "Last 10 Seconds" ]
-period_list = range(1,5)
 
 st.write('# Game xPTS')
 total_games_df = pd.concat([leaguegamelog.LeagueGameLog().get_data_frames()[0],leaguegamelog.LeagueGameLog(season_type_all_star="Playoffs").get_data_frames()[0]])
@@ -271,18 +246,23 @@ try:
 
         game_boxscore=game_boxscore.dropna().set_index('PLAYER_ID')
         game_boxscore['MIN'] = game_boxscore['MIN'].apply(lambda min: min.split('.')[0] )
-        selected_clutch_time = st.selectbox(
-                    "Select the Game Clutch time",
-                    clutch_time_list,
-                    index=0)
-        
-        selected_period = st.selectbox(
-                    "Select the Game Quarter",
-                    period_list,
-                    index=0)
-        period = None
-        clutch_time = None
-        game_shotchart = load_game_shotchart(game_id, period, clutch_time)
+
+        game_shotchart = pd.concat([
+        shotchartdetail.ShotChartDetail(
+        team_id=0,
+        player_id=0,
+        game_id_nullable=game_id,
+        context_measure_simple='FGA',
+        season_type_all_star="Regular Season"
+        ).get_data_frames()[0],
+
+        shotchartdetail.ShotChartDetail(
+        team_id=0,
+        player_id=0,
+        game_id_nullable=game_id,
+        context_measure_simple='FGA',
+        season_type_all_star="Playoffs"
+        ).get_data_frames()[0]])
 
         game_shotchart['SHOT_TYPE'] = game_shotchart['SHOT_TYPE'].apply(lambda x: x[0])
         game_shotchart['LOC_X'] = game_shotchart['LOC_X'].apply(lambda x:-x)
@@ -322,22 +302,6 @@ try:
 
         st.markdown("---")
         with st.container():
-            st.write(game_shotchart)
-            column1, column2, column3 = st.columns(3)
-            with column1:
-                selected_clutch_time = st.selectbox(
-                    "Select the Game Clutch time",
-                    clutch_time_list,
-                    index=None)
-            with column2:
-                selected_period = st.selectbox(
-                    "Select the Game Quarter",
-                    period_list,
-                    index=None)
-                
-            if selected_period is not None or selected_clutch_time is not None:
-                game_shotchart = load_game_shotchart(game_id=game_id, period=selected_period, clutch_time=selected_clutch_time)
-        
             col1, col2, col3 = st.columns([1, 4, 1])
 
             # Team logos
@@ -371,9 +335,7 @@ try:
                         st.write(game["Away_boxscore"].sort_values(by=['PTS','xPTS'],ascending=False).reset_index(drop=True))
 
 
-    player_on_off = ["All"] + game_boxscore['PLAYER_ID'].unique()
 
 except Exception as e:
     st.write(f"An error occurred: {e}")
     st.write(f"No games on {selected_date}")
-
